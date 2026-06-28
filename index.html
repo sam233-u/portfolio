@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>林冰清 | 作品集 Portfolio</title>
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin:0; padding:0; box-sizing: border-box; }
+
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f7f8fa;
+  --text: #1a1a1a;
+  --text-secondary: #5a5a5a;
+  --text-light: #888;
+  --accent: #2c2c2c;
+  --border: #e5e6e8;
+  --border-light: #eeeef0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+  --max-w: 1100px;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ========== LAYOUT ========== */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+section { padding: 80px 0; }
+section:nth-child(even) { background: var(--bg-alt); }
+
+/* ========== NAVBAR ========== */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 1000;
+  transition: box-shadow .3s;
+}
+.navbar.scrolled { box-shadow: var(--shadow-sm); }
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px;
+  background: var(--accent); transition:width .25s;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* ========== HERO ========== */
+.hero {
+  padding: 150px 0 80px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-light);
+}
+.hero-name {
+  font-size: clamp(40px, 6vw, 60px);
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--accent);
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+.hero-title {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+}
+.hero-tags {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tag {
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--bg-alt);
+  transition: all .2s;
+}
+.tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ========== SECTION HEADERS ========== */
+.section-header {
+  margin-bottom: 48px;
+  text-align: center;
+}
+.section-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+.section-line {
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+  margin: 16px auto 0;
+  border-radius: 2px;
+}
+
+/* ========== ABOUT SECTION ========== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.about-text p {
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+.about-skill-groups { display: flex; flex-direction: column; gap: 24px; }
+.skill-group h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag {
+  padding: 5px 14px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ========== WORKS / COMMISSION SECTION ========== */
+.works-grid {
+  display: grid;
+  gap: 32px;
+}
+.work-card {
+  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform .3s, box-shadow .3s;
+}
+.work-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.work-img-wrapper {
+  overflow: hidden;
+  cursor: pointer;
+}
+.work-img-wrapper img {
+  width: 100%;
+  height: auto;
+  transition: transform .4s;
+}
+.work-img-wrapper:hover img { transform: scale(1.02); }
+.work-info {
+  padding: 22px 26px;
+}
+.work-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.work-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.work-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+.work-tags-row { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+.wtag {
+  font-size: 12px;
+  padding: 3px 10px;
+  background: var(--bg-alt);
+  border-radius: 3px;
+  color: var(--text-light);
+}
+
+/* ========== GALLERY GRID ========== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.gallery-item {
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg);
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+}
+.gallery-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  transition: transform .35s;
+}
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-caption {
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-light);
+}
+
+/* ========== IP SHOWCASE ========== */
+.ip-showcase {
+  background: var(--bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  transition: transform .3s;
+}
+.ip-showcase:hover { transform: translateY(-4px); }
+.ip-showcase img {
+  width: 100%;
+  display: block;
+}
+.ip-showcase-info {
+  padding: 28px 30px;
+  text-align: center;
+}
+.ip-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.ip-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.ip-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.ip-tag-row { margin-top: 14px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+
+/* ========== CONTACT SECTION ========== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.contact-info h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--accent);
+}
+.contact-info p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+.contact-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.contact-form { background: var(--bg); padding: 32px; border-radius: 8px; border: 1px solid var(--border-light); }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color .2s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .2s;
+  font-family: inherit;
+}
+.btn-submit:hover { opacity: 0.85; }
+
+/* ========== FOOTER ========== */
+.footer {
+  text-align: center;
+  padding: 32px 0;
+  border-top: 1px solid var(--border-light);
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* ========== LIGHTBOX ========== */
+.lightbox-overlay {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.88);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+.lightbox-overlay.active { display: flex; }
+.lightbox-overlay img {
+  max-width: 92vw;
+  max-height: 88vh;
+  border-radius: 6px;
+  object-fit: contain;
+}
+.lightbox-close {
+  position: absolute; top: 20px; right: 24px;
+  font-size: 36px; color: #fff; cursor: pointer;
+  opacity: 0.75; transition: opacity .2s;
+}
+.lightbox-close:hover { opacity: 1; }
+
+/* ========== SCROLL ANIMATIONS ========== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  section { padding: 56px 0; }
+  .hero { padding: 120px 0 60px; }
+  .work-info { padding: 18px 20px; }
+  .contact-form { padding: 24px 20px; }
+  .ip-showcase-info { padding: 22px 20px; }
+}
+@media (max-width: 480px) {
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .hero-name { letter-spacing: 2px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">LIN BINGQING</div>
+    <ul class="nav-links">
+      <li><a href="#about">关于</a></li>
+      <li><a href="#works">委托作品</a></li>
+      <li><a href="#gallery">插画场景</a></li>
+      <li><a href="#ip">IP设计</a></li>
+      <li><a href="#contact">联系</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container fade-in">
+    <h1 class="hero-name">林冰清</h1>
+    <p class="hero-title">数字媒体艺术 · 角色设计 · 插画师</p>
+    <div class="hero-tags">
+      <span class="tag">角色立绘</span>
+      <span class="tag">Q版设计</span>
+      <span class="tag">场景概念</span>
+      <span class="tag">IP形象开发</span>
+      <span class="tag">表情包周边</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 01 ABOUT ====== -->
+<section id="about">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-num">01 — About</p>
+      <h2 class="section-title">关于我</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>你好，我是林冰清（艺名：黑雨），广州南方学院设计学院数字媒体艺术专业2027届应届毕业生。</p>
+        <p>专注于原创角色设计与插画创作，擅长日系赛璐璐与美式卡通融合风格。拥有丰富的绘画委托经验，曾独立运营个人品牌「BLACK RAIN」，承接多元风格的角色设计与商业插画项目。</p>
+        <p>同时涉足游戏交互概念设计与原创 IP 孵化。目前正推进原创萌宠 IP《萌界》及周边产品开发，以及《星海萃仪》表情包与衍生品系列。</p>
+      </div>
+      <div class="about-skill-groups fade-in">
+        <div class="skill-group">
+          <h4>设计技能</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">角色立绘</span>
+            <span class="skill-tag">Q版设计</span>
+            <span class="skill-tag">三视图</span>
+            <span class="skill-tag">场景概念</span>
+            <span class="skill-tag">IP形象设计</span>
+            <span class="skill-tag">表情包绘制</span>
+            <span class="skill-tag">周边衍生品</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>工具软件</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Photoshop</span>
+            <span class="skill-tag">Clip Studio Paint</span>
+            <span class="skill-tag">Procreate</span>
+            <span class="skill-tag">SAI</span>
+            <span class="skill-tag">Unity</span>
+            <span class="skill-tag">Blender</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>研究方向</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">游戏交互概念</span>
+            <span class="skill-tag">IP孵化与运营</span>
+            <span class="skill-tag">创作者陪伴工具</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 02 COMMISSION WORKS ====== -->
+<section id="works">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-num">02 — Commission Works</p>
+      <h2 class="section-title">绘画委托作品</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="works-grid">
+
+      <!-- Work 1: 欧式宫廷魔法 -->
+      <div class="work-card fade-in">
+        <div class="work-img-wrapper" onclick="openLightbox('images/work_court_magic.jpg')">
+          <img src="images/work_court_magic.jpg" alt="欧式宫廷魔法角色" loading="lazy">
+        </div>
+        <div class="work-info">
+          <p class="work-label">Commission / 精细角色</p>
+          <h3 class="work-title">欧式宫廷魔法角色</h3>
+          <p class="work-desc">以欧洲宫廷与魔幻史诗为核心设计方向，白蓝冷色调配以金色纹饰，营造神圣高贵的神域氛围。含完整正面/侧面/背面三视图及武器配件设计。</p>
+          <div class="work-tags-row">
+            <span class="wtag">三视图</span>
+            <span class="wtag">宫廷风</span>
+            <span class="wtag">武器设计</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 2: 西部牛仔 -->
+      <div class="work-card fade-in">
+        <div class="work-img-wrapper" onclick="openLightbox('images/work_cowboy.jpg')">
+          <img src="images/work_cowboy.jpg" alt="西部牛仔冒险角色" loading="lazy">
+        </div>
+        <div class="work-info">
+          <p class="work-label">Commission / 风格化角色</p>
+          <h3 class="work-title">西部牛仔冒险者</h3>
+          <p class="work-desc">融合西部牛仔与航海冒险的风格化角色设计，大地色调构建粗犷的荒野视觉基础。含人物三视角、家族徽章、战斧武器、帽饰与腰带配件的完整设计稿。</p>
+          <div class="work-tags-row">
+            <span class="wtag">西部风</span>
+            <span class="wtag">配件设计</span>
+            <span class="wtag">徽章设计</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 3: 蓝色龙形生物 -->
+      <div class="work-card fade-in">
+        <div class="work-img-wrapper" onclick="openLightbox('images/work_dragon.jpg')">
+          <img src="images/work_dragon.jpg" alt="蓝色龙形生物设定" loading="lazy">
+        </div>
+        <div class="work-info">
+          <p class="work-label">Commission / 生物设计</p>
+          <h3 class="work-title">幻想龙形生物设定</h3>
+          <p class="work-desc">优雅修长的龙形生物设计，长卷发式衣摆与冰晶花冠装饰。配套竖琴形魔法乐器与法杖武器设计，兼具音乐家与战斗属性的双重气质。</p>
+          <div class="work-tags-row">
+            <span class="wtag">生物设定</span>
+            <span class="wtag">武器道具</span>
+            <span class="wtag">奇幻</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 4: 幻想角色合集 -->
+      <div class="work-card fade-in">
+        <div class="work-img-wrapper" onclick="openLightbox('images/commission_01.jpg')">
+          <img src="images/commission_01.jpg" alt="幻想风格角色设计合集" loading="lazy">
+        </div>
+        <div class="work-info">
+          <p class="work-label">Commission / 角色设计合集</p>
+          <h3 class="work-title">幻想风格角色设计合集</h3>
+          <p class="work-desc">四款幻想题材角色：龙形生物设定、欧式宫廷魔法、红发精灵、西部牛仔冒险者。融合水彩质感与精细线条。</p>
+          <div class="work-tags-row">
+            <span class="wtag">角色立绘</span>
+            <span class="wtag">奇幻</span>
+            <span class="wtag">多风格</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 5: 多风格立绘 -->
+      <div class="work-card fade-in">
+        <div class="work-img-wrapper" onclick="openLightbox('images/commission_02.jpg')">
+          <img src="images/commission_02.jpg" alt="多风格角色立绘合集" loading="lazy">
+        </div>
+        <div class="work-info">
+          <p class="work-label">Commission / 角色立绘</p>
+          <h3 class="work-title">多风格角色立绘合集</h3>
+          <p class="work-desc">六款完整角色立绘，涵盖军装制服、洛丽塔、古风汉服、深海精灵等多元题材，展现丰富的服装设计与配色能力。</p>
+          <div class="work-tags-row">
+            <span class="wtag">服装设计</span>
+            <span class="wtag">色彩搭配</span>
+            <span class="wtag">多题材</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 6: 黑白线稿 -->
+      <div class="work-card fade-in">
+        <div class="work-img-wrapper" onclick="openLightbox('images/commission_03.jpg')">
+          <img src="images/commission_03.jpg" alt="黑白线稿角色合集" loading="lazy">
+        </div>
+        <div class="work-info">
+          <p class="work-label">Commission / 线稿设计</p>
+          <h3 class="work-title">黑白线稿角色合集</h3>
+          <p class="work-desc">八款黑白角色线稿集合，涵盖现代制服、恶魔翅膀、和风、哥特萝莉等多种风格，注重线条表现力与造型功底。</p>
+          <div class="work-tags-row">
+            <span class="wtag">黑白线稿</span>
+            <span class="wtag">造型设计</span>
+            <span class="wtag">线条表现</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====== 03 GALLERY ====== -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-num">03 — Gallery</p>
+      <h2 class="section-title">Q版 &amp; 场景设计</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="gallery-grid">
+
+      <div class="gallery-item fade-in" onclick="openLightbox('images/gallery_qpink.jpg')">
+        <img src="images/gallery_qpink.jpg" alt="粉发Q版萌系角色" loading="lazy">
+        <p class="gallery-caption">粉发 Q 版萌系角色</p>
+      </div>
+
+      <div class="gallery-item fade-in" onclick="openLightbox('images/gallery_qtelescope.jpg')">
+        <img src="images/gallery_qtelescope.jpg" alt="银发望远镜Q版角色" loading="lazy">
+        <p class="gallery-caption">银发望远镜 Q 版</p>
+      </div>
+
+      <div class="gallery-item fade-in" onclick="openLightbox('images/gallery_fountain.jpg')">
+        <img src="images/gallery_fountain.jpg" alt="喷泉庭院场景设计" loading="lazy">
+        <p class="gallery-caption">喷泉庭院场景</p>
+      </div>
+
+      <div class="gallery-item fade-in" onclick="openLightbox('images/gallery_house.jpg')">
+        <img src="images/gallery_house.jpg" alt="魔法小屋剖面室内" loading="lazy">
+        <p class="gallery-caption">魔法小屋剖面</p>
+      </div>
+
+      <div class="gallery-item fade-in" onclick="openLightbox('images/brand_logo.jpg')">
+        <img src="images/brand_logo.jpg" alt="BLACK RAIN 品牌标识" loading="lazy">
+        <p class="gallery-caption">BLACK RAIN Logo</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====== 04 IP DESIGN ====== -->
+<section id="ip">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-num">04 — IP Design</p>
+      <h2 class="section-title">原创 IP 设计</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="ip-showcase fade-in" onclick="openLightbox('images/ip_stickers.jpg')">
+      <img src="images/ip_stickers.jpg" alt="星海萃仪 IP 表情包与衍生品" loading="lazy">
+      <div class="ip-showcase-info">
+        <p class="ip-label">Original IP / 表情包 &amp; 衍生品</p>
+        <h3 class="ip-title">《星海萃仪》IP 表情包 KT 板海报</h3>
+        <p class="ip-desc">原创 Q 版 IP「星海萃仪」，包含三位核心角色的完整三视图设计、多套表情包素材、以及丰富的衍生品效果展示（明信片、徽章、抱枕、马克杯、帆布袋、鼠标垫等）。数字衍生产品艺术课程作品。</p>
+        <div class="ip-tag-row">
+          <span class="wtag">原创IP</span>
+          <span class="wtag">Q版角色</span>
+          <span class="wtag">三视图</span>
+          <span class="wtag">表情包</span>
+          <span class="wtag">周边衍生</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 05 CONTACT ====== -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-num">05 — Contact</p>
+      <h2 class="section-title">联系我</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <h3>合作 &amp; 委托</h3>
+        <p>欢迎联系我进行绘画委托、角色设计合作或游戏美术项目洽谈。我会尽快回复您的消息。</p>
+        <div class="contact-item">
+          <div class="contact-icon">&#9993;</div>
+          <span>1876487810@qq.com</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#9742;</div>
+          <span>135-5691-2366</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#9749;</div>
+          <span>广州 / 可远程协作</span>
+        </div>
+      </div>
+      <div class="contact-form fade-in">
+        <form onsubmit="event.preventDefault(); alert('消息已收到！我会尽快回复您。');">
+          <div class="form-group">
+            <label>姓名</label>
+            <input type="text" placeholder="您的称呼">
+          </div>
+          <div class="form-group">
+            <label>邮箱</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>留言内容</label>
+            <textarea placeholder="请描述您的需求..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">发送消息</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    &copy; 2026 Lin Bingqing (BLACK RAIN). All rights reserved.
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// Navbar scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Lightbox
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById('lightbox') && e.target.className !== 'lightbox-close') return;
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(e); });
+</script>
+
+</body>
+</html>
